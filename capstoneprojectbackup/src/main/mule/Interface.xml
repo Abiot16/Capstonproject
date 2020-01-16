@@ -129,30 +129,7 @@ output application/json
         </error-handler>
     </flow>
     <flow name="put:\users:application\json:customermanagementapi-config">
-        <ee:transform doc:name="Transform Message" doc:id="992f8476-5be2-445d-b25d-28093efb9626" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
-output application/xml
-ns ns0 http://www.craftsoftware.com/users
----
-{
-	UpdateUserRequest: {
-		User: {
-			id: attributes.queryParams.id default 0
-		}
-	}
-}]]></ee:set-payload>
-			</ee:message>
-		</ee:transform>
-		<wsc:consume operation="UpdateUser" doc:name="Consume" doc:id="5f03da8e-0cc9-4c9a-8cbe-cc97c11f2638" config-ref="Web_Service_Consumer_Config"/>
-		<ee:transform doc:name="Transform Message" doc:id="fbb4a596-dc2e-460f-8853-4239bb77bdea" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-payload]]></ee:set-payload>
-			</ee:message>
-		</ee:transform>
+		<flow-ref doc:name="updateUser" doc:id="9337a0d2-e746-4310-ae7a-b6b861880a46" name="updateUser"/>
     </flow>
     <flow name="delete:\users\(id):customermanagementapi-config">
 		<flow-ref doc:name="deleteUser" doc:id="0588f316-c5b0-4699-aac9-fc47c67fe27c" name="deleteUser"/>
